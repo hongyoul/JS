@@ -9,7 +9,7 @@ person.age = 30;
 
 person.getName = function () {
   console.log(this.firstName + this.lastName);
-}
+} 
 
 person.getName();
 
