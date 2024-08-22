@@ -137,8 +137,8 @@ console.log(sum); //합계
 //주어진 문자열에서 연속된 동일한 문자들이 몇 번 반복되는지 세고, 이를 “문자+숫자” 형식으로 압축하세요.
 
 const str = "aaabbc";
-let compressed = ""; //압축된 문자
-let count = 1; //현재 문자가 몇번 반복되었는지 카운트
+let compressed = ""; //압축된 문자(결과을 담을 문자열 함수와)
+let count = 1; //현재 문자가 몇번 반복되었는지 카운트 (결과을 담을 숫자형 함수를 생성한다 )
 
 for (let i = 0; i < str.length; i++) {
   //현재 문자가 다음문자와 같은지 비교
@@ -146,7 +146,7 @@ for (let i = 0; i < str.length; i++) {
     count++;
   } else {
     // 같지 않으면 카운트 종료. 압축된 문자 추가
-    compressed = compressed + str[i] + count;
+    compressed = compressed + str[i] + count; //compressed의 연결
     // 카운트 초기화
     count = 1;
   }
@@ -154,13 +154,13 @@ for (let i = 0; i < str.length; i++) {
 
 console.log(compressed); // 출력: a3b2c1
 
-
+// 풀이과정 해석
 // 초기 상태:
 // str = "aaabbc"
 // compressed = "" (빈 문자열) 
 // count = 1
 
-// i = 0:
+// i = 0: <- 인덱스번호
 // str[0] = 'a'
 // count = 2로 증가 (다음 문자도 'a'라서)
 // compressed: "" (변경 없음)
