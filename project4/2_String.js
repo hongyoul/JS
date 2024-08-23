@@ -34,6 +34,7 @@ console.log(fruit.replace("바나나", "딸기"));
 // toUpperCase: 문자열을 모두 대문자로 변경하는 함수
 // toLocaleLowerCase: 문자열을 모두 소문자로 변경하는 함수
 let hello = "Hello World";
+console.log(hello.toUpperCase()); // HELLO WORLD
 console.log(hello.toLocaleUpperCase()); // HELLO WORLD
 console.log(hello.toLocaleLowerCase()); // hello world
 
