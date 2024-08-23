@@ -18,13 +18,13 @@ const products = [
 ];
 
 //가격을 기준으로 오름차순 정렬하기
-products.sort((a, b) => a.price - b.price);
+products.sort((a, b) => a.price - b.price); 
 console.log("정렬된 상품 목록:", products);
 
 // 가격과 카테고리 기준으로 필터링하기
 // 가격이 50,000 원 이상 500,000 원 이하인 상품만 포함
 // 카테고리가 "전자제품"인 상품만 포함
-const filteredProducts = products.filter(
+const filteredProducts = products.filter( 
   (product) =>
     product.price >= 50000 &&
     product.price <= 500000 &&

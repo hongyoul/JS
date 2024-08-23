@@ -44,6 +44,7 @@ console.log("재고가 10개가 넘는 제품의 가격 할인:", inventory);
 
 // 모든 제품의 총 재고 가치 계산
 const totalValue = inventory.reduce((total, item) => {
+  // 누적값 + (가격* 수량)
   return total + item.quantity * item.price;
 }, 0);
 
