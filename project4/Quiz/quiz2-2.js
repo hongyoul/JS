@@ -1,24 +1,3 @@
-// Q7. 배열의 요소 중에서 20보다 큰 숫자를 찾고, 각 요소에 2를 곱한 결과를 만드세요.
-// 배열: [10, 15, 20, 25, 30]
-// 결과: [50, 60]
-let arr = [10, 15, 20, 25, 30];
-
-let psaa = arr.filter (
-
-function (pss) {
-  return pss > 20;
-  }
-);
-console.log(psaa);
-
-let multiply = psaa.map(
-  function (mp) {
-    return mp * 2
-  }
-);
-
-console.log(multiply);
-
 
 // Q8. 주어진 문자열에서 각 단어의 첫 글자를 대문자로 변환하세요.
 // 문자열: “hello world welcome to programming”
@@ -67,6 +46,8 @@ var newText = newArr.join(" ");
 console.log(newText);
 
 //버전2
+var newText = "";
+
 for ( let word of arr4) {
   // 각 단어를 순회하면서 단어의 첫글자만 대문자로 변경
   // 한글자씩 새로운 텍스트에 연결
@@ -74,7 +55,7 @@ for ( let word of arr4) {
     if(i==0) {
       // 첫글자를 대문자로 변경하여 연결
       newText =newText + woed[i].toUpperCase();
-    } else{
+    } else {
     //첫글자가 아닌경우 원래 문자 그대로 연결
     newText =newText+word[i];
   }
@@ -83,26 +64,3 @@ for ( let word of arr4) {
   newText = newText + " ";
 }
 console.log(newText);
-
-// Q9. 배열에서 문자열의 길이가 5보다 긴 요소만 찾아 대문자로 변환하세요.
-// 배열: ["apple", "banana", "grape", "kiwi", "watermelon"]
-// 결과: ["BANANA", "WATERMELON"]
-var arr2 =  ["apple", "banana", "grape", "kiwi", "watermelon"];
-
-// 문자열의 길이가 5보다 긴 배열 찾기
-var five = arr2.filter(
-  function (fi) {
-    return fi.length > 5;
-  }
-);
-console.log(five);
-
-// 배열을 대문자로 변환하기 위해 스트링으로 변환
-var str = five.toString();
-console.log(str.toLocaleUpperCase());
-
-var str2 = str.toLocaleUpperCase()
-
-// 스트링을 배열로 다시 변환
-var arr3 = str2.split(",");
-console.log(arr3);
