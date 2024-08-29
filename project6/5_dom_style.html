@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-     .border-red {
-        border: 2px dashed red;
-      }
+    .border-red {
+      border: 2px dashed red;
+    }
 
-      .border-green {
-        border: 2px solid green;
-      }
+    .border-green {
+      border: 2px solid green;
+    }
   </style>
 </head>
 <body>
@@ -95,6 +95,27 @@
         let email = document.getElementById("divEmail");
         email.style.display = "none";
       }
+
+      //save 버튼 클릭 시 입력필드에 값이 있는지 검사
+       //값이 없으면 필드의 테두리를 빨강으로 변경, 경고메세지 표시
+      function doSave() {
+        let text = document.getElementById("text1");
+        if (text.value == "") {
+          text.className = "border-red";
+          alert("필수값들을 입력하세요.");
+        }
+      }
+
+      //SELECT에서 한국을 선택하면 지역 선택 박스 보여주기
+      //한국이 아닌 다른 나라를 선택하면 지역 선택 박스 숨기기
+      function doChange(obj) {
+        if (obj.value == "KO") {
+          document.getElementById("select2").style.display = "";
+        } else {
+          document.getElementById("select2").style.display = "none";
+        }
+      }
+
     </script>
 
 </body>
