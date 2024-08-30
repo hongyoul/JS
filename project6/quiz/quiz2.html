@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>온라인 쇼핑 장바구니</title>
+  <style>
+      html {
+        width: 1000px;
+        margin: 0 auto;
+      }
+
+      div {
+        width: 550px;
+        border: 1px solid black;
+        padding: 20px;
+      }
+
+      ul > li {
+        list-style-type: none;
+        display: contents;
+      }
+
+      .border-red {
+        border: 2px solid red;
+      }
+
+      .item-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .item-row button {
+        margin-left: 10px;
+      }
+
+      .total {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+  </style>
+</head>
+<body>
+  <div>
+    <h1><strong>온라인 쇼핑 장바구니</strong></h1>
+    <ul>
+      <li>
+        <label>상품이름:
+          <input type="text" id="itemName" oninput="clearError('itemName')">
+        </label>
+      </li>
+      <br>
+      <li>
+        <label>수량:
+          <input type="text" id="itemQuantity" oninput="validateNumber(this)">
+        </label>
+      </li>
+      <br>
+      <li>
+        <label>가격(개당):
+          <input type="text" id="itemPrice" oninput="validateNumber(this)">
+        </label>
+      </li>
+    </ul>
+    
+    <button onclick="addItem()">장바구니에 추가</button>
+
+    <h2>장바구니</h2>
+    <p id="cart"></p>
+    <p class="total">
+      총 수량: <span id="totalQuantity">0</span><br>
+      총 가격: <span id="totalPrice">0</span>원
+    <br/>
+  </div>
+
+  <script>
+    // 장바구니를 저장할 변수
+    let cart = {};
+
+    // 상품을 장바구니에 추가하는 함수
+    function addItem() {
+      let name = document.getElementById("itemName").value.trim();
+      let quantity = parseInt(document.getElementById("itemQuantity").value.trim(), 10);
+      let price = parseFloat(document.getElementById("itemPrice").value.trim());
+
+      // 입력 검증
+      if (!name) {
+        alert("상품 이름을 입력해 주세요.");
+        document.getElementById("itemName").classList.add("border-red");
+        return;
+      } else {
+        document.getElementById("itemName").classList.remove("border-red");
+      }
+
+      if (isNaN(quantity) || quantity <= 0) {
+        alert("유효한 수량을 입력해주세요.");
+        document.getElementById("itemQuantity").classList.add("border-red");
+        return;
+      } else {
+        document.getElementById("itemQuantity").classList.remove("border-red");
+      }
+
+      if (isNaN(price) || price <= 0) {
+        alert("유효한 가격을 입력해주세요.");
+        document.getElementById("itemPrice").classList.add("border-red");
+        return;
+      } else {
+        document.getElementById("itemPrice").classList.remove("border-red");
+      }
+
+      // 장바구니에 추가하거나 업데이트
+      if (cart[name]) {
+        cart[name].quantity += quantity;
+        cart[name].totalPrice += quantity * price; // 가격을 누적
+      } else {
+        cart[name] = { quantity, price, totalPrice: quantity * price };
+      }
+
+      // 장바구니 업데이트
+      updateCart();
+    }
+
+    // 장바구니를 업데이트하고 표시하는 함수
+    function updateCart() {
+      let cartDiv = document.getElementById("cart");
+      cartDiv.innerHTML = ''; // 기존 장바구니 항목 삭제
+
+      let totalQuantity = 0;
+      let totalPrice = 0;
+
+      for (let name in cart) {
+        let item = cart[name];
+        totalQuantity += item.quantity;
+        totalPrice += item.totalPrice; // 누적된 가격을 계산
+
+        let itemDiv = document.createElement("p");
+        itemDiv.className = "item-row";
+
+        itemDiv.innerHTML = `
+          ${name} - 수량: ${item.quantity}개, 가격: ${item.price.toFixed(2)}원
+          <button onclick="removeItem('${name}')">제거</button>
+        `;
+        cartDiv.appendChild(itemDiv);
+      }
+
+      document.getElementById("totalQuantity").textContent = totalQuantity;
+      document.getElementById("totalPrice").textContent = totalPrice.toFixed(2);
+    }
+
+    // 장바구니에서 항목을 제거하는 함수
+    function removeItem(name) {
+      delete cart[name];
+      updateCart();
+    }
+
+    // 숫자만 입력받도록 하는 함수
+    function validateNumber(input) {
+      let value = input.value;
+      if (!/^\d*\.?\d*$/.test(value)) {
+        input.classList.add("border-red");
+      } else {
+        input.classList.remove("border-red");
+      }
+    }
+
+    // 오류 메시지 제거 함수
+    function clearError(id) {
+      document.getElementById(id).classList.remove("border-red");
+    }
+    
+  </script>
+</body>
+</html>
