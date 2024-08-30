@@ -113,7 +113,7 @@
       // 장바구니에 추가하거나 업데이트
       if (cart[name]) {
         cart[name].quantity += quantity;
-        cart[name].totalPrice += quantity * price; // 가격을 누적
+        cart[name].totalPrice += quantity * cart[name].totalPrice; // 가격을 누적
       } else {
         cart[name] = { quantity, price, totalPrice: quantity * price };
       }
@@ -122,32 +122,33 @@
       updateCart();
     }
 
-    // 장바구니를 업데이트하고 표시하는 함수
-    function updateCart() {
-      let cartDiv = document.getElementById("cart");
-      cartDiv.innerHTML = ''; // 기존 장바구니 항목 삭제
+      // 장바구니를 업데이트하고 표시하는 함수
+      function updateCart() {
+        let cartDiv = document.getElementById("cart");
+        cartDiv.innerHTML = ''; // 기존 장바구니 항목 삭제
 
-      let totalQuantity = 0;
-      let totalPrice = 0;
+        let totalQuantity = 0;
+        let totalPrice = 0;
 
-      for (let name in cart) {
-        let item = cart[name];
-        totalQuantity += item.quantity;
-        totalPrice += item.totalPrice; // 누적된 가격을 계산
+        for (let name in cart) {
+          let item = cart[name];
+          totalQuantity += item.quantity;
+          totalPrice += item.totalPrice; // 누적된 가격을 계산
 
-        let itemDiv = document.createElement("p");
-        itemDiv.className = "item-row";
+          let itemDiv = document.createElement("p");
+          itemDiv.className = "item-row";
 
-        itemDiv.innerHTML = `
-          ${name} - 수량: ${item.quantity}개, 가격: ${item.price.toFixed(2)}원
-          <button onclick="removeItem('${name}')">제거</button>
-        `;
-        cartDiv.appendChild(itemDiv);
+          itemDiv.innerHTML = `
+            ${name} - 수량: ${item.quantity}개, 가격: ${item.totalPrice.toFixed(2)}원
+            <button onclick="removeItem('${name}')">제거</button>
+          `;
+          cartDiv.appendChild(itemDiv);
+        }
+
+        document.getElementById("totalQuantity").textContent = totalQuantity;
+        document.getElementById("totalPrice").textContent = totalPrice.toFixed(2);
       }
 
-      document.getElementById("totalQuantity").textContent = totalQuantity;
-      document.getElementById("totalPrice").textContent = totalPrice.toFixed(2);
-    }
 
     // 장바구니에서 항목을 제거하는 함수
     function removeItem(name) {
