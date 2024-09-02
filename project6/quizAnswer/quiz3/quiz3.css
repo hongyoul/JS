@@ -6,6 +6,7 @@ flex-direction, justify-content 등을 사용해 자식 요소의 배치와 정�
 */
 #flex-container {
   display: flex;
+  /* flex-direction:row; */
 }
 
 /* 공통 스타일 */
