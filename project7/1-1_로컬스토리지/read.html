@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  message:
+  <div id="msg"></div>
+
+  person:
+  <div>
+    <!-- person은 객체이기 때문에 span태그로 나눠서 출력  -->
+      <span id="name"></span>
+      <span id="age"></span>
+  </div>
+
+  <script>
+    const msg = document.getElementById("msg"); //div
+    const name = document.getElementById("name"); //span
+    const age = document.getElementById("age"); //span
+
+    if (typeof Storage !== "undefined") {
+
+      //스토리지에 저장된 데이터를 키로 꺼내기
+      // localStorage.getItem(식별자:key);
+      let message2 = localStorage.getItem("message"); //get함수는 반환하는 함수
+      msg.textContent = message2;
+
+      let person = localStorage.getItem("pesron2");
+      let personObj = JSON.parse(person);
+      // console.log(personObj);
+      name.textContent = personObj.name;
+      age.textContent = personObj.age;
+    }
+
+  </script>
+
+</body>
+</html>

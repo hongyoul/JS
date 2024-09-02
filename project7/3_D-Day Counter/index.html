@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="./style.css">
+    
+    <script src="./script.js"></script>
+
+</head>
+<body>
+
+  <h1>D-Day Counter</h1>
+
+  <div>
+    <!-- <input>, <button>은 인라인 요소로 한줄에 배치됨 -->
+    <!-- size는 필드에 입력할 수 있는 글자의 수 -->
+      <input id="year-input" size="5" /> 년
+      <input id="month-input" size="5" /> 월
+      <input id="date-input" size="5" /> 일
+  </div>
+
+  <br>
+
+  <div>
+    <button onclick="count()">시작</button>
+    <button onclick="">중지</button>
+    <button onclick="">초기화</button>
+  </div>
+
+  <br>
+
+  <div id="dday-div">
+    <!-- <div>는 블록 요소로 한줄을 다 차지하며 수직으로 배치됨 -->
+    <div>
+      남은 시간: 
+  </div>
+
+  <div>
+    <span id="day"><strong>0</strong></span> 일
+  </div>
+
+  <div>
+    <span id="hour"><strong>0</strong></span> 시간
+  </div>
+
+  <div>
+    <span id="min"><strong>0</strong></span> 분
+  </div>
+
+  <div>
+    <span id="sec"><strong>0</strong></span> 초
+  </div>
+
+
+
+</body>
+</html>
