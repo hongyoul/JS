@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./projectMin.css">
+  <script src="./projectMin.js" defer></script> <!-- defer 속성 추가 -->
+</head>
+<body>
+  <h1>To Do List</h1>
+  <div>
+    <input id="list-add" size="15">
+    <button id="plus-button">+</button> <!-- onclick 제거 -->
+  </div>
+  <ul id="addList">
+    <!-- 데이터가 추가될 자리 -->
+  </ul>
+  <p>총
+    <span id="completed-count">0</span>개 완료
+    <span id="total-count">0</span>개
+  </p>
+  <button id="allDelete">전체 삭제</button>
+</body>
+</html>

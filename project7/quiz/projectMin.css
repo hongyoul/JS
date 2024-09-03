@@ -1,0 +1,15 @@
+/* 완료된 항목에 대한 스타일 정의 */
+.completed {
+  text-decoration: line-through; /* 완료된 항목에 줄을 그어 표시 */
+}
+
+/* 수정 및 삭제 버튼 스타일 추가 */
+.edit-button, .delete-button {
+  margin-left: 5px;
+}
+/* 불릿 점 제거 */
+ul {
+  list-style-type: none; /* 리스트의 기본 불릿을 제거합니다. */
+  padding: 0;            /* ul의 기본 패딩을 제거합니다. */
+  margin: 0;             /* ul의 기본 마진을 제거합니다. */
+}

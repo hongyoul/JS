@@ -22,13 +22,18 @@ button {
 #dday-div {
   display: flex;
   flex-direction: row; /* 가로 */
-  font-size: 1.2rem;  
+  font-size: 1rem;  
+  font-weight: 700;
 }
 
 /*
 자식 선택자 사용!
 id가 'dday-div'인 요소의 자식 div 태그를 모두 선택
 */
-#dday-div > div {
+#dday-div > div  {
   margin-right: 1rem;
+}
+
+#dday-div > div > span {
+color: rgb(255, 0, 68);
 }
