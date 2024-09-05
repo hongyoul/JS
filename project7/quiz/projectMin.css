@@ -1,5 +1,5 @@
 /* 완료된 항목에 대한 스타일 정의 */
-.completed {
+.task-item.completed .task-text {
   text-decoration: line-through; /* 완료된 항목에 줄을 그어 표시 */
 }
 
@@ -9,7 +9,7 @@
 }
 
 .edit-input {
-  border: 1px solid #ccc;
+  border: 1px solid white;
   padding: 2px;
   margin-right: 5px;
   width: 150px;
@@ -21,4 +21,12 @@ ul {
   list-style-type: none; /* 리스트의 기본 불릿을 제거합니다. */
   padding: 0;            /* ul의 기본 패딩을 제거합니다. */
   margin: 0;             /* ul의 기본 마진을 제거합니다. */
+}
+
+.task-item.completed .delete-button {
+  text-decoration: line-through;
+}
+
+.task-item.completed .edit-button {
+  text-decoration: line-through;
 }
