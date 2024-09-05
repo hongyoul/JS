@@ -1,18 +1,31 @@
 
 // 리스트에 할일을 추가하는 함수
-function addTodo () {
+function addTodo (storageData) {
 
   const todoInput = document.querySelector("#todo-input");
   let todoContents = null; //할일 내용
   let todoComplete = null;
 
-  // 공백을 제거한 후에 값이 있는지 확인
-  if (todoInput.value.trim() !== "") {
-    todoContents = todoInput.value; //할일 내용
+
+  // 화면을 로드할 때 호출됬으면 스토리지에서 꺼낸 데이터 사용
+  if (storageData != null) {
+    todoContents = storageData.contents; // 내용
+    todoComplete = storageData.complete; // 상태
+
+    // 추가버튼을 직접 클릭했으면 사용자가 입력한 내용을 사용
   } else {
-    alert("입력값이 없습니다");
-    return;
-  }
+    
+      // 공백을 제거한 후에 값이 있는지 확인
+      if (todoInput.value.trim() !== "") {
+        todoContents = todoInput.value; //할일 내용
+      } else {
+        alert("입력값이 없습니다");
+        return;
+      }
+    
+    }
+
+
 
   //새로운 li 태그 생성
   const newLi = document.createElement("li");
@@ -22,7 +35,7 @@ function addTodo () {
   const newInput = document.createElement("input");
   newInput.type = "text";
   newInput.value = todoContents;
-  newInput.disabled = true; // 처음에는 읽기 전용으로 설정
+  newInput.disabled = true; // 처음에는 읽기 전용으로 설정  *disabled가 true이면 읽기 전용, false이면 수정모드
 
   //체크박스 (완료 여부 표시)
   const checkBox = document.createElement("input");
@@ -38,11 +51,11 @@ function addTodo () {
   
   // 체크박스 이벤트 리스너 (완료 여부 토글)
   checkBox.addEventListener('change', () =>{ 
-    newLi.classList.toggle("complete");
+    newLi.classList.toggle("complete"); // CSS가 반대로 처리됨
 
     // 할일 개수와 리스트 상태 업데이트
-    // countTodo();
-    // saveItemsFn();
+    countTodo();
+    saveItemsFn();
   })
 
   // 스토리지에서 가져온 데이터라면, 체크상태 유지
@@ -56,16 +69,16 @@ function addTodo () {
     newLi.remove();
     
     // 할일 개수와 리스트 상태 업데이트
-    // countTodo();
-    // saveItemsFn();
+    countTodo();
+    saveItemsFn();
   });
 
   // 수정버튼 클릭시 할 일 수정모드로 전환
   editBtn.addEventListener("click", () => {
 
     // 텍스트에 따라 모드를 구분
-    if (editBtn.textContent === "수정") {
-      newInput.disabled = false; // 입력필드에 수정이 가능하게 설정
+    if (editBtn.textContent === "수정") { // 버튼의 이름을 가지고 구분함
+      newInput.disabled = false; // 입력필드에 수정이 가능하게 설정 *disabled속성을 가지고 편집이 가능하게 함
       editBtn.textContent = "저장";
 
     } else {
@@ -73,7 +86,7 @@ function addTodo () {
       editBtn.textContent = "수정";
 
       // 리스트 상태 업데이트
-      // saveItemsFn();
+      saveItemsFn();
     }
   });
 
@@ -89,8 +102,8 @@ function addTodo () {
   todoInput.value = "";
 
   // 할일 개수와 리스트 상태 업데이트
-  // countTodo();
-  // saveItemsFn();
+  countTodo();
+  saveItemsFn();
 };
 
 // 리스트를 모두 삭제하는 함수
@@ -98,13 +111,17 @@ function deleteAll () {
   // ul 아래 모든 li 가져오기
   const liList = document.querySelectorAll("li");
   // li를 하나씩 삭제
-  for (let i = 0; i < liList.length; i++) {
-    liList[i].remove();
+  // for (let i = 0; i < liList.length; i++) {
+  //   liList[i].remove();
+  // }
+
+  for(item of liList) {
+    item.remove();
   }
 
   // 할일 개수와 리스트 상태 업데이트
-  // countTodo();
-  // saveItemsFn();
+  countTodo();
+  saveItemsFn();
 };
 
 // 할일의 총 개수와 완료된 개수를 표시하는 함수
@@ -127,4 +144,54 @@ function countTodo(){
 
   const completeTodo = document.getElementById("complete-todo");
   completeTodo.textContent = checkBoxCount;
+}
+
+// 로컬 스토리지에 데이터 저장부분
+function saveItemsFn () {
+  // ul 태그 안에 모든 li 태그 찾기 (querySelectorAll를 사용할 것)
+  const todoList = document.querySelectorAll("#todo-list > li");
+
+  // 할일 리스트
+  const saveItem = [];
+
+  // 각 li 태그에서 할일 내용과 완료 여부를 추출
+  for(let todo of todoList) { // todo를  li태그로 보면 됨
+
+    // 각 li 요소에 있는 텍스트필드(할일내용) 찾기
+    let text = todo.querySelector('input[type="text"]');
+
+    const tosoObj = { 
+      contents: text.value, //할일 내용
+      complete: todo.classList.contains('complete'), // 완료 여부
+    }
+  
+    // 배열에 할일 객체 추가
+    saveItem.push(tosoObj);
+}
+console.log(saveItem);
+
+// 할일이 한개도 없으면 스토리지에서 삭제, 있으면 저장
+if (saveItem.length == 0) {
+  localStorage.removeItem("saved-items")
+} else {
+  localStorage.setItem("saved-items",JSON.stringify(saveItem)); //setItem 추가 or 수정
+}
+
+}
+
+// 로컬 스토리지에 저장된 값을 꺼내오는 부분
+
+// 처음 화면이 로드 될 때, 스토리지에 저장된 할일 목록 가져오기
+const savedItems = localStorage.getItem("saved-items")
+const savedTodoList = JSON.parse(savedItems);
+
+if (savedTodoList != undefined) {
+
+  // 저장된 할일 목록이 있으면, 화면에 표시하기
+  for(let todo of savedTodoList) {
+    addTodo(todo);
+  }
+
+} else {
+  console.log("스토리지에 저장된 데이터가 없습니다");
 }
